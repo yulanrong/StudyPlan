@@ -10,59 +10,28 @@ import {
   Alert,
 } from "react-native";
 import React from "react";
+import Home from "./Home.jsx";
 import Plan from "./Plan.jsx";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("./assets/background.jpg")}
-        imageStyle={{ opacity: 0.55 }}
-        style={styles.background}
-        resizeMode="cover"
-      >
-        <Text style={styles.title}>Your Study Plan</Text>
-        <Text style={styles.subtitle}>What do you want to study today?</Text>
-        <TouchableOpacity onPress={() => Alert.alert("click")}>
-          <Image
-            source={require("./assets/start.png")}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <StatusBar style="auto" />
-      </ImageBackground>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Home" }}
+        />
+        <Stack.Screen
+          name="Plan"
+          component={Plan}
+          options={{ title: "Study Plan" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  background: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 40,
-    fontWeight: "bold",
-    marginBottom: 20,
-    fontFamily: "Cochin",
-    color: "#3e2321",
-  },
-  subtitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontFamily: "Cochin",
-    marginBottom: 0,
-    color: "#8f5546",
-    fontWeight: "bold",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    alignSelf: "center",
-  },
-});
