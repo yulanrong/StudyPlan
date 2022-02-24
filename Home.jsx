@@ -22,13 +22,21 @@ const Home = ({ navigation }) => {
         style={styles.background}
         resizeMode="cover"
       >
+        <Image
+            source={require("./assets/student.png")}
+            style={styles.image}
+            resizeMode="contain"
+          />
         <Text style={styles.title}>Your Study Plan</Text>
         <Text style={styles.subtitle}>What do you want to study today?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Plan")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Plan")}
+          style={styles.image}
+        >
           <Image
             source={require("./assets/start.png")}
             style={styles.image}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </TouchableOpacity>
       </ImageBackground>

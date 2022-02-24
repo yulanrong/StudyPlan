@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   View,
   Text,
@@ -6,24 +6,28 @@ import {
   ImageBackground,
   StyleSheet,
   Pressable,
+  Image,
 } from "react-native";
 
 const Plan = () => {
+  const [list, setList] = useState([]);
+
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("./assets/background.jpg")}
-        imageStyle={{ opacity: 0.5 }}
-        style={styles.background}
-        resizeMode="cover"
-      >
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Add Your Plan</Text>
+          <Image
+            source={require("./assets/chick.png")}
+            style={styles.image}
+            resizeMode="contain"
+          />
         </Pressable>
+        {list.length > 0 ?
+
         <View style={styles.content}>
 
         </View>
-      </ImageBackground>
+        : null}
     </View>
   );
 };
@@ -32,18 +36,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#a7b9b6",
-  },
-  background: {
-    flex: 1,
     justifyContent: "center",
   },
+
   button: {
-    alignItems: 'center',
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: 25,
     marginRight: 25,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 20,
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 15,
@@ -51,15 +54,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#2a5a4e',
   },
   buttonText: {
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: 20,
     fontWeight: 'bold',
     letterSpacing: 0.5,
     color: '#e0e6e4',
   },
+  image: {
+    width: 40,
+    height: 30,
+  },
   content: {
     flex: 1,
-    backgroundColor: "#a7b9b6",
+    //backgroundColor: "#a7b9b6",
     marginLeft: 25,
     marginRight: 25,
     borderRadius: 20,
