@@ -20,12 +20,13 @@ const Plan = ({ navigation }) => {
   const [list, setList] = useState([]);
   const [text, addText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [refresh, setRefresh] = useState(0);
+  //const [refresh, setRefresh] = useState(0);
+  //const [isAdded, setAdded] = useState(false);
 
   useEffect(() => {
     createTable();
     getData();
-  }, [refresh]);
+  }, []);
 
   const createTable = () => {
     db.transaction((tx) => {
@@ -42,7 +43,6 @@ const Plan = ({ navigation }) => {
         (tx, results) => {
           if (results.rows.length > 0) {
             setList(results.rows._array);
-            console.log(results.rows._array);
           }
         }
       )
@@ -53,16 +53,36 @@ const Plan = ({ navigation }) => {
     if (text.length > 0) {
       db.transaction((tx) => {
        tx.executeSql(
-          "INSERT INTO plans (text) VALUES (?)", [text]
+          "INSERT INTO plans (text) VALUES (?)", [text],
+          (txObj, result) => {
+            let newEntry = {done: 0, id: result.insertId, text: text};
+            setList(list => [...list, newEntry]);
+          }
         );
       });
-
     }
     setModalVisible(!modalVisible);
-    setRefresh(old => old + 1);
     addText('');
   };
 
+
+
+  const handleDelete = (itemId) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "DELETE FROM plans WHERE id = ? ", [itemId],
+        (txObj, result) => {
+            let filteredList = list.filter(item => {
+              return item.id !== itemId;
+            });
+            setList(filteredList);
+
+        }
+      )
+    });
+  };
+
+  console.log(list);
 
   return (
     <View style={styles.container}>
@@ -110,8 +130,8 @@ const Plan = ({ navigation }) => {
 
       <ScrollView style={styles.content}>
 
-        {list.map(item =>
-        <PlanDetail item={item.text} id={item.id} done={item.done} navigation={navigation} />)}
+        {list.map((item, index) =>
+        <PlanDetail key={index} item={item.text} id={item.id} done={item.done} navigation={navigation} />)}
 
       </ScrollView>
       : null}

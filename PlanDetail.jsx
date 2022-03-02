@@ -18,11 +18,30 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabase("db.StudyPlanDb");
 
-const PlanDetail = ({item, id, done, navigation}) => {
+const PlanDetail = ({item, id, done, navigation, handleDelete}) => {
 
-  const handleDelete = () => {
-    console.log('hello')
+  // const handleDelete = (id) => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       "DELETE FROM plans WHERE id = ? ", [id],
+  //       (txObj, result) => {
+  //         if (result.rowAffected > 0) {
+  //           let filteredList = list.filter(item => {
+  //             return item.id !== id;
+  //           });
+  //           setList(filteredList);
+  //         }
+  //       }
+  //     )
+  //   });
+  // };
+
+ console.log(id);
+
+  const handleUpdate = () => {
+
   };
+
   const leftSwipe = () => {
 
     return (
@@ -35,7 +54,7 @@ const PlanDetail = ({item, id, done, navigation}) => {
           </Animated.Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleDelete}>
+      <TouchableOpacity onPress={handleUpdate}>
         <View style={styles.edit}>
           <Animated.Text style={styles.deleteText}>
             Edit
