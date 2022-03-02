@@ -12,6 +12,7 @@ import {
 import React from "react";
 import Home from "./Home.jsx";
 import Plan from "./Plan.jsx";
+import Timer from "./Timer.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -31,6 +32,7 @@ export default function App() {
           component={Plan}
           options={{ title: "Study Plan" }}
         />
+        <Stack.Screen name="Timer" component={Timer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
