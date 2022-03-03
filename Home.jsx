@@ -22,6 +22,7 @@ const Home = ({ navigation }) => {
         style={styles.background}
         resizeMode="cover"
       >
+
         <Image
             source={require("./assets/student.png")}
             style={styles.image}
@@ -39,6 +40,11 @@ const Home = ({ navigation }) => {
             resizeMode="cover"
           />
         </TouchableOpacity>
+        <Image
+          source={require("./assets/chick.png")}
+          style={styles.chickImage}
+          resizeMode="contain"
+        />
       </ImageBackground>
     </View>
   );
@@ -73,6 +79,11 @@ const styles = StyleSheet.create({
     height: 100,
     alignSelf: "center",
   },
+  chickImage: {
+    width: 80,
+    height: 70,
+    alignSelf: "flex-start",
+  }
 });
 
 export default Home;

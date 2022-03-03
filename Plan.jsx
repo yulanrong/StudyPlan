@@ -20,13 +20,17 @@ const Plan = ({ navigation }) => {
   const [list, setList] = useState([]);
   const [text, addText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  //const [refresh, setRefresh] = useState(0);
-  //const [isAdded, setAdded] = useState(false);
+  const [planModal, setPlanModal] = useState(false);
 
   useEffect(() => {
-    createTable();
-    getData();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+
+      createTable();
+      getData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const createTable = () => {
     db.transaction((tx) => {
@@ -40,7 +44,7 @@ const Plan = ({ navigation }) => {
     db.transaction((tx) => {
       tx.executeSql(
         "SELECT * FROM plans", [],
-        (tx, results) => {
+        (txObj, results) => {
           if (results.rows.length > 0) {
             setList(results.rows._array);
           }
@@ -60,27 +64,40 @@ const Plan = ({ navigation }) => {
           }
         );
       });
+      setModalVisible(!modalVisible);
+      addText('');
     }
-    setModalVisible(!modalVisible);
-    addText('');
   };
 
-
-
-  const handleDelete = (itemId) => {
+  const handleCopy = (id) => e => {
     db.transaction((tx) => {
       tx.executeSql(
-        "DELETE FROM plans WHERE id = ? ", [itemId],
-        (txObj, result) => {
-            let filteredList = list.filter(item => {
-              return item.id !== itemId;
-            });
-            setList(filteredList);
-
+        "SELECT text FROM plans WHERE id = ? ", [id],
+        (tx, {rows: {_array}}) => {
+          tx.executeSql(
+            "INSERT INTO plans (text) VALUES (?)", [_array[0].text],
+            (txObj, result) => {
+              let newEntry = {done: 0, id: result.insertId, text: _array[0].text};
+              setList(list => [...list, newEntry]);
+            }
+          );
         }
       )
     });
+  }
+
+
+
+  const onRemove = (id) => e => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "DELETE FROM plans WHERE id = ? ", [id],
+      )
+    });
+    setList(list.filter(plan => plan.id !== id));
   };
+
+
 
   console.log(list);
 
@@ -96,9 +113,16 @@ const Plan = ({ navigation }) => {
       >
         <View style={styles.container}>
           <View style={styles.modalView}>
+
             <Pressable style={styles.closeButton}>
+            <Image
+          source={require("./assets/chick.png")}
+          style={styles.image}
+          resizeMode="contain"
+        />
               <Text style={styles.closeText} onPress={() => setModalVisible(!modalVisible)}>X</Text>
             </Pressable>
+
             <TextInput
               style={styles.input}
               onChangeText={addText}
@@ -106,15 +130,14 @@ const Plan = ({ navigation }) => {
               placeholder="What's your plan?"
             />
 
-            <Button
-              title="Save"
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={() => insertData()}
-            />
+
+
+            <Pressable style={styles.saveButton} onPress={() => insertData()}>
+
+              <Text style={styles.saveText}>Save</Text>
+            </Pressable>
+
+
           </View>
         </View>
       </Modal>
@@ -130,8 +153,15 @@ const Plan = ({ navigation }) => {
 
       <ScrollView style={styles.content}>
 
-        {list.map((item, index) =>
-        <PlanDetail key={index} item={item.text} id={item.id} done={item.done} navigation={navigation} />)}
+        {list.map((item) =>
+
+
+          <PlanDetail key={item.id} {...item} onRemove={onRemove} navigation={navigation} handleCopy={handleCopy} />
+
+
+
+        )}
+
 
       </ScrollView>
       : null}
@@ -160,6 +190,21 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "#2a5a4e",
   },
+  saveButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    backgroundColor: '#a0522d',
+  },
+  saveText: {
+    fontSize: 20,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
   buttonText: {
     fontSize: 20,
     lineHeight: 20,
@@ -179,6 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     marginBottom: 25,
+
   },
   modalView: {
     margin: 20,
@@ -196,11 +242,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   closeButton: {
+    flexDirection: 'row',
     alignSelf: "flex-end",
   },
   closeText: {
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#8f5546",
   },
