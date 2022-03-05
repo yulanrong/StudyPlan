@@ -51,7 +51,9 @@ const PlanDetail = ({ done, id, text, navigation, onRemove, handleCopy }) => {
         />
         <Text style={styles.content}>{text}</Text>
         {done === 1 ? (
-          <Text>Finished!</Text>
+          <View style={styles.startButton}>
+            <AntDesign name="checkcircleo" size={40} color="green" />
+          </View>
         ) : (
           <Pressable style={styles.startButton}>
             <Text
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
     height: 55,
     borderWidth: 2,
     borderColor: "white",
-
   },
   deleteText: {
     color: "white",

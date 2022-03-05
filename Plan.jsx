@@ -10,10 +10,10 @@ import {
   Modal,
   Button,
   TextInput,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import * as SQLite from "expo-sqlite";
-import PlanDetail from './PlanDetail.jsx';
+import PlanDetail from "./PlanDetail.jsx";
 const db = SQLite.openDatabase("db.StudyPlanDb");
 
 const Plan = ({ navigation }) => {
@@ -23,8 +23,7 @@ const Plan = ({ navigation }) => {
   const [planModal, setPlanModal] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-
+    const unsubscribe = navigation.addListener("focus", () => {
       createTable();
       getData();
     });
@@ -42,64 +41,60 @@ const Plan = ({ navigation }) => {
 
   const getData = () => {
     db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM plans", [],
-        (txObj, results) => {
-          if (results.rows.length > 0) {
-            setList(results.rows._array);
-          }
+      tx.executeSql("SELECT * FROM plans", [], (txObj, results) => {
+        if (results.rows.length > 0) {
+          setList(results.rows._array);
         }
-      )
-    })
-  }
+      });
+    });
+  };
 
   const insertData = () => {
     if (text.length > 0) {
       db.transaction((tx) => {
-       tx.executeSql(
-          "INSERT INTO plans (text) VALUES (?)", [text],
+        tx.executeSql(
+          "INSERT INTO plans (text) VALUES (?)",
+          [text],
           (txObj, result) => {
-            let newEntry = {done: 0, id: result.insertId, text: text};
-            setList(list => [...list, newEntry]);
+            let newEntry = { done: 0, id: result.insertId, text: text };
+            setList((list) => [...list, newEntry]);
           }
         );
       });
       setModalVisible(!modalVisible);
-      addText('');
+      addText("");
     }
   };
 
-  const handleCopy = (id) => e => {
+  const handleCopy = (id) => (e) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT text FROM plans WHERE id = ? ", [id],
-        (tx, {rows: {_array}}) => {
+        "SELECT text FROM plans WHERE id = ? ",
+        [id],
+        (tx, { rows: { _array } }) => {
           tx.executeSql(
-            "INSERT INTO plans (text) VALUES (?)", [_array[0].text],
+            "INSERT INTO plans (text) VALUES (?)",
+            [_array[0].text],
             (txObj, result) => {
-              let newEntry = {done: 0, id: result.insertId, text: _array[0].text};
-              setList(list => [...list, newEntry]);
+              let newEntry = {
+                done: 0,
+                id: result.insertId,
+                text: _array[0].text,
+              };
+              setList((list) => [...list, newEntry]);
             }
           );
         }
-      )
+      );
     });
-  }
-
-
-
-  const onRemove = (id) => e => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM plans WHERE id = ? ", [id],
-      )
-    });
-    setList(list.filter(plan => plan.id !== id));
   };
 
-
-
-  console.log(list);
+  const onRemove = (id) => (e) => {
+    db.transaction((tx) => {
+      tx.executeSql("DELETE FROM plans WHERE id = ? ", [id]);
+    });
+    setList(list.filter((plan) => plan.id !== id));
+  };
 
   return (
     <View style={styles.container}>
@@ -113,14 +108,18 @@ const Plan = ({ navigation }) => {
       >
         <View style={styles.container}>
           <View style={styles.modalView}>
-
             <Pressable style={styles.closeButton}>
-            <Image
-          source={require("./assets/chick.png")}
-          style={styles.image}
-          resizeMode="contain"
-        />
-              <Text style={styles.closeText} onPress={() => setModalVisible(!modalVisible)}>X</Text>
+              <Image
+                source={require("./assets/chick.png")}
+                style={styles.image}
+                resizeMode="contain"
+              />
+              <Text
+                style={styles.closeText}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                X
+              </Text>
             </Pressable>
 
             <TextInput
@@ -130,14 +129,9 @@ const Plan = ({ navigation }) => {
               placeholder="What's your plan?"
             />
 
-
-
             <Pressable style={styles.saveButton} onPress={() => insertData()}>
-
               <Text style={styles.saveText}>Save</Text>
             </Pressable>
-
-
           </View>
         </View>
       </Modal>
@@ -149,22 +143,19 @@ const Plan = ({ navigation }) => {
           resizeMode="contain"
         />
       </Pressable>
-      {list.length > 0 ?
-
-      <ScrollView style={styles.content}>
-
-        {list.map((item) =>
-
-
-          <PlanDetail key={item.id} {...item} onRemove={onRemove} navigation={navigation} handleCopy={handleCopy} />
-
-
-
-        )}
-
-
-      </ScrollView>
-      : null}
+      {list.length > 0 ? (
+        <ScrollView style={styles.content}>
+          {list.map((item) => (
+            <PlanDetail
+              key={item.id}
+              {...item}
+              onRemove={onRemove}
+              navigation={navigation}
+              handleCopy={handleCopy}
+            />
+          ))}
+        </ScrollView>
+      ) : null}
     </View>
   );
 };
@@ -191,19 +182,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#2a5a4e",
   },
   saveButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 4,
-    backgroundColor: '#a0522d',
+    backgroundColor: "#a0522d",
   },
   saveText: {
     fontSize: 20,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
   buttonText: {
     fontSize: 20,
@@ -224,7 +215,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     marginBottom: 25,
-
   },
   modalView: {
     margin: 20,
@@ -242,7 +232,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   closeButton: {
-    flexDirection: 'row',
+    flexDirection: "row",
     alignSelf: "flex-end",
   },
   closeText: {

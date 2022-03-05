@@ -22,12 +22,11 @@ const Home = ({ navigation }) => {
         style={styles.background}
         resizeMode="cover"
       >
-
         <Image
-            source={require("./assets/student.png")}
-            style={styles.image}
-            resizeMode="contain"
-          />
+          source={require("./assets/student.png")}
+          style={styles.image}
+          resizeMode="contain"
+        />
         <Text style={styles.title}>Your Study Plan</Text>
         <Text style={styles.subtitle}>What do you want to study today?</Text>
         <TouchableOpacity
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 70,
     alignSelf: "flex-start",
-  }
+  },
 });
 
 export default Home;
