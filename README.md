@@ -4,6 +4,9 @@
 
 ### This is a mobile App that allows users to setup their daily study plan and focus on each plan with their customized time frame.
 
+## How to Use:
+### To run on your device, first you need to download Expo Go from App Store, then open https://expo.dev/@yulan/StudyPlan and scan the QR code. Now enjoy! :) 
+
 ## Demo:
 
 ![demo-gif](./assets/demo.gif)
