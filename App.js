@@ -1,14 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
 import React from "react";
 import Home from "./Home.jsx";
 import Plan from "./Plan.jsx";

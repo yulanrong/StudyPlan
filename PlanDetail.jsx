@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   ImageBackground,
   StyleSheet,
   Pressable,
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
 
   content: {
     fontSize: 22,
-    fontFamily: "Cochin",
     width: "65%",
   },
   startButton: {

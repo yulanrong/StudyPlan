@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   ImageBackground,
   StyleSheet,
   Pressable,
@@ -198,13 +197,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 35,
-    fontFamily: "Cochin",
     fontWeight: "bold",
     color: "#3e2321",
   },
   subtitle: {
     fontSize: 22,
-    fontFamily: "Cochin",
     alignSelf: "center",
     padding: 10,
     marginBottom: 10,

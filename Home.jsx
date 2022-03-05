@@ -2,15 +2,11 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Image,
   ImageBackground,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Plan from "./Plan.jsx";
 
 const Home = ({ navigation }) => {
@@ -62,13 +58,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
     marginBottom: 10,
-    fontFamily: "Cochin",
     color: "#3e2321",
   },
   subtitle: {
     textAlign: "center",
     fontSize: 20,
-    fontFamily: "Cochin",
     marginBottom: 10,
     color: "rgb(107, 60, 48)",
     fontWeight: "bold",
