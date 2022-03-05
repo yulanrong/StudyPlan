@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "StudyPlan",
+    "name": "Your Study Plan",
     "slug": "StudyPlan",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "a mobile App that allows users to setup their daily study plan and focus on each plan with their customized time frame.",
+    "githubUrl": "https://github.com/yulanrong/StudyPlan"
   }
 }

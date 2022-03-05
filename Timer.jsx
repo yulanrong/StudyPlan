@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -34,6 +35,7 @@ const Timer = ({ route, navigation }) => {
     if (duration > 0) {
       setMinutes(duration);
       setTimer(true);
+      Keyboard.dismiss();
     }
   };
 
