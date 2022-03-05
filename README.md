@@ -1,6 +1,6 @@
 # Your Study Plan
 
-## Description:##
+## Description: ##
 
 ### This is a mobile App that allows users to setup their daily study plan and focus on each plan with their customized time frame.
 
