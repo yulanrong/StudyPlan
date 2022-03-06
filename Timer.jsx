@@ -89,8 +89,8 @@ const Timer = ({ route, navigation }) => {
               style={styles.image}
               resizeMode="contain"
             />
-            <Text style={styles.title}>Congratulations!</Text>
-            <Text style={styles.subtitle}>You've finished this task!</Text>
+            <Text adjustFontSizeToFit style={styles.title}>Congratulations!</Text>
+            <Text adjustFontSizeToFit style={styles.subtitle}>You've finished this task!</Text>
           </View>
           <Pressable style={styles.pauseButton}>
             <Text style={styles.confirmText} onPress={updateDone}>
@@ -198,12 +198,12 @@ const styles = StyleSheet.create({
     height: 40,
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: "bold",
     color: "#3e2321",
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 20,
     alignSelf: "center",
     padding: 10,
     marginBottom: 10,

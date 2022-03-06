@@ -2,7 +2,7 @@
 
 ## Description:
 
-- This is a mobile App that allows users to add, duplicate, or delete their daily study plans using mobile gestures ux design. Each plan has a customized countdown timer that allows users to focus on their plan on a certain time.
+- This is a mobile App that allows users to add, duplicate, or delete their daily study plans using mobile gestures ux design. Each plan has a customized countdown timer that allows users to focus on their plan within a certain time.
 
 ## How to Use:
 
