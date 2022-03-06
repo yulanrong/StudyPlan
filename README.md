@@ -2,10 +2,12 @@
 
 ## Description:
 
-### This is a mobile App that allows users to setup their daily study plan and focus on each plan with their customized time frame.
+- This is a mobile App that allows users to add, duplicate, or delete their daily study plans using mobile gestures ux design. Each plan has a customized countdown timer that allows users to focus on their plan on a certain time.
 
 ## How to Use:
-### To run on your device, first you need to download Expo Go from App Store, then open https://expo.dev/@yulan/StudyPlan and scan the QR code. Now enjoy! :) 
+
+- fork this repo on your local machine
+- run **expo start** on terminal, then follow the instruction to open the app in the way you prefer
 
 ## Demo:
 
@@ -13,15 +15,16 @@
 
 ## Tech Stacks:
 
-- ### React Native / Expo
+- React Native / Expo
 
-- ### react-navigation
+- react-navigation
 
-- ### React
+- React
 
-- ### react-native-gesture-handler
+- react-native-gesture-handler
 
-- ### SQLite
+- SQLite
+- expo-optimize
 
 ## Images Reference Links:
 
@@ -39,4 +42,4 @@
 
 ## Note:
 
-This mobile app supports both IOS and Android systems. However, the left swipe does not support on Android system.
+This mobile app supports both IOS and Android systems. However, the left swipe does not support on Android system when testing on Android emulator.

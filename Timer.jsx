@@ -173,7 +173,7 @@ const Timer = ({ route, navigation }) => {
                 </Text>
               )}
             </Pressable>
-            <Text>*Please stay on this page and keep your progress</Text>
+            <Text numberOfLines={1} adjustFontSizeToFit style={{textAlign: 'center', fontSize: 13}}>*Please stay on this page to keep your progress</Text>
           </View>
         ) : null}
       </View>
